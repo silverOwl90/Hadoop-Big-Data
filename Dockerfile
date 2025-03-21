@@ -32,11 +32,13 @@ RUN mkdir -p /opt/hadoop/jdk \
 # Change priority of /opt/hadoop/jdk to hadoop user
 RUN chown -R hadoop:hadoop /opt/hadoop/jdk
 
-# Configurate enviroment variables at .bashrc of hadoop user
-RUN echo 'export JAVA_HOME=/opt/hadoop/jdk' >> /home/hadoop/.bashrc \
-    && echo 'export HADOOP_HOME=/opt/hadoop' >> /home/hadoop/.bashrc \
-    && echo 'export PATH=${JAVA_HOME}/bin:${HADOOP_HOME}/bin:${PATH}' >> /home/hadoop/.bashrc
+# Configurate enviroment variables 
+ENV JAVA_HOME=/opt/hadoop/jdk
+ENV HADOOP_HOME=/opt/hadoop
+ENV PATH="${JAVA_HOME}/bin:${HADOOP_HOME}/bin:${PATH}"
 
 # Change to user hadoop
 USER hadoop
 WORKDIR /home/hadoop
+
+EXPOSE 22

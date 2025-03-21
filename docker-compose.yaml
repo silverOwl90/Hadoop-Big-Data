@@ -1,0 +1,17 @@
+services:
+  hadoop:
+    image: hadoop
+    build: 
+      context: .
+      dockerfile: ./dockerfile
+    command: ["tail", "-f", "/dev/null"]
+    ports:
+      - "22:22"
+      - "9870:9870"
+    volumes:
+      - ./hadoop/.ssh:/home/hadoop/.ssh/
+      - ./hadoop/etc/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./hadoop/etc/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml      
+      - ./hadoop/etc/sshd_config:/etc/ssh/sshd_config
+      - ./hadoop/datos/datanode:/datos/datanode  
+      - ./hadoop/datos/namenode:/datos/namenode          
